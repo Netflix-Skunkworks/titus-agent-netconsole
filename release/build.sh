@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cd /src
-cp -r pkg titus-agent-netconsole-0.${BUILD_NUMBER}
-cd /src/titus-agent-netconsole-0.${BUILD_NUMBER}
+cp -r pkg titus-agent-netconsole-${TITUS_NETCONSOLE_VERSION}
+cd /src/titus-agent-netconsole-${TITUS_NETCONSOLE_VERSION}
 
 dh_make --yes --indep --createorig
 cp /src/pkg/install debian/install
