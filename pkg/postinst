@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+. /etc/profile.d/netflix_environment.sh
+
+EDDA_URL=edda-main.$EC2_REGION.$NETFLIX_ACCOUNT.netflix.net:7001
+echo EDDA_URL: $EDDA_URL
+
+instance_id=$(curl -s "http://$EDDA_URL/api/v2/view/instances;tags.spinnaker:application=tituslogserver;state.name=running" | jq .[])
+instance_id=${instance_id//\"}
+echo titus-log-server instance_id: $instance_id
+
+ip_address=$(curl -s "http://$EDDA_URL/api/v2/view/instances/$instance_id:(networkInterfaces)" | jq '.[] | .[] | select(.attachment.deviceIndex==1) | .privateIpAddress')
+ip_address=${ip_address//\"}
+echo titus-log-server ip_address: $ip_address
+
+setup_net_console.sh $ip_address 6666
