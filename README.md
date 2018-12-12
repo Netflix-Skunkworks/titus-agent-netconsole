@@ -5,11 +5,8 @@ $ docker build -t deb release/
 ```
 
 ### Build the debian package
-Set the build number to an integer.
-
-e.g.
 ```bash
 $ rm -rf titus-agent*
-$ docker run --rm -e "BUILD_NUMBER=2" -v $PWD:/src deb:latest
+$ docker run --rm -e "TITUS_NETCONSOLE_VERSION=0.1" -v $PWD:/src deb:latest
 ```
 
